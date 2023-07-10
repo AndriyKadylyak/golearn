@@ -28,6 +28,14 @@ func Test_sumMaxMin(t *testing.T) {
 			want:  14,
 			want1: 9,
 		},
+		{
+			name: "test case 3",
+			args: args{
+				nums: []int{0, 2, 3, 4, 6},
+			},
+			want:  15,
+			want1: 9,
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
