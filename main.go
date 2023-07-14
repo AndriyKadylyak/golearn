@@ -2,28 +2,25 @@ package main
 
 import (
 	"fmt"
-	"os"
-	"os/signal"
-	"syscall"
-	"time"
+	"sort"
 )
 
 func main() {
-	now := time.Now()
-	sigChannel := make(chan os.Signal, 1)
-	signal.Notify(sigChannel, os.Interrupt, syscall.SIGTERM)
-	go helloWorld()
 
-	select {
-	case <-sigChannel:
+	nums := []int{1, 2, 3, 4, 5}
 
-		fmt.Println("Stopped by user after", time.Since(now), "second")
-		os.Exit(0)
-	}
+	numsMax, numsMin := sumMaxMin(nums)
+
+	fmt.Println(numsMax, numsMin)
+
 }
-func helloWorld() {
-	fmt.Println("hello World")
-	time.Sleep(10 * time.Second)
-	fmt.Println("Goodbye world")
-	os.Exit(0)
+
+func sumMaxMin(nums []int) (int, int) {
+	sort.Slice(nums, func(i, j int) bool {
+		return nums[i] < nums[j]
+	})
+	min := nums[0] + nums[1] + nums[2] + nums[3]
+	max := nums[1] + nums[2] + nums[3] + nums[4]
+
+	return max, min
 }
